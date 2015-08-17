@@ -1,0 +1,147 @@
+﻿@model XuanTi.Models.MainViewModel
+@{
+    ViewBag.Title = "旋梯";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    /*=============================================================
+        Authour URL: www.designbootstrap.com
+
+        http://www.designbootstrap.com/
+
+        License: MIT
+    ========================================================  */
+    .center {
+        width: auto;
+        display: table;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .db-pricing-seven {
+        margin-bottom: 30px;
+        margin-top: 30px;
+        text-align: center;
+        border: 1px solid #C5C2C2;
+        background-color: #EDEDED;
+    }
+
+        .db-pricing-seven:hover {
+            margin-top: 5px;
+            -moz-transition: margin-top 0.25s ease 0s;
+            -ms-transition: margin-top 0.25s ease 0s;
+            transition: margin-top 0.25s ease 0s;
+        }
+
+        .db-pricing-seven ul {
+            list-style: none;
+            margin: 0;
+            text-align: center;
+            padding-left: 0px;
+        }
+
+            .db-pricing-seven ul li {
+                border-bottom: solid 1px #D8D8D8;
+                padding-top: 20px;
+                padding-bottom: 20px;
+                cursor: pointer;
+                text-transform: uppercase;
+            }
+
+                .db-pricing-seven ul li.price {
+                    background-color: #fff;
+                    padding: 40px 20px 20px 20px;
+                    font-size: 20px;
+                    font-weight: 900;
+                    color: #353c3e;
+                    font-weight: 900;
+                }
+
+                    .db-pricing-seven ul li.price i {
+                        padding: 30px;
+                        font-size: 50px;
+                        display: block;
+                    }
+
+
+        .db-pricing-seven .pricing-footer {
+            padding: 20px;
+        }
+
+            .db-pricing-seven .pricing-footer a i {
+                margin: 5px;
+                top: 3px;
+            }
+</style>
+<script type="text/javascript" src="http://cdn.staticfile.org/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+<script src="~/Scripts/base64.js"></script>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">流量使用详情</div>
+        <div class="panel-body">
+            <span>总流量：@Model.transfer_enable</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span>已使用：@Model.use</span>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="db-wrapper">
+                <div class="db-pricing-seven">
+                    <ul>
+                        <li class="price">
+                            <i class="glyphicon glyphicon-link"></i>
+                            美国凤凰城服务器
+                        </li>
+
+                        <li>总流量：10G</li>
+                        <li>已使用流量：1G</li>
+                        <li>状态：可用</li>
+                    </ul>
+                    <div class="pricing-footer">
+                        <a href="#" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModal">生成二维码 <i class="glyphicon glyphicon-play-circle"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="db-wrapper">
+                <div class="db-pricing-seven">
+                    <ul>
+                        <li class="price">
+                            <i class="glyphicon glyphicon-link"></i>
+                            美国凤凰城服务器
+                        </li>
+
+                        <li>总流量：10G</li>
+                        <li>已使用流量：1G</li>
+                        <li>状态：可用</li>
+                    </ul>
+                    <div class="pricing-footer">
+                        <a href="#" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModal">生成二维码 <i class="glyphicon glyphicon-play-circle"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">二维码</h4>
+            </div>
+            <div class="modal-body">
+                <div id="qrcode" class="center">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var base64 = "ss://" + BASE64.encoder("bf-cfb:test@192.168.120.1:8888");
+    jQuery('#qrcode').qrcode(base64);
+</script>
