@@ -14,6 +14,7 @@ namespace XuanTi.Controllers
     public class MainController : BaseController
     {
         UserService u = new UserService();
+        FlowService fs = new FlowService();
         // GET: Main
         public ActionResult Index()
         {
@@ -22,24 +23,24 @@ namespace XuanTi.Controllers
             {
                 this.CurrentUser = u.GetUser(this.CurrentUser.email);
                 mainViewModel.passwd = this.CurrentUser.passwd;
-                long zongliuliang = (this.CurrentUser.transfer_enable / 1024) / 1024;
+                Double zongliuliang = (this.CurrentUser.transfer_enable / 1024) / 1024;
                 if (zongliuliang > 1024)
                 {
-                    long liuliang = zongliuliang / 1024;
+                    Double liuliang = zongliuliang / 1024;
                     mainViewModel.transfer_enable = liuliang + "G";
                 }
                 else
                 {
                     mainViewModel.transfer_enable = zongliuliang + "m";
                 }
-                long shiyongliuliang = ((this.CurrentUser.u + this.CurrentUser.d) / 1024) / 1024;
-                if (shiyongliuliang>zongliuliang)
+                Double shiyongliuliang = ((this.CurrentUser.u + this.CurrentUser.d) / 1024) / 1024;
+                if (shiyongliuliang > zongliuliang)
                 {
                     shiyongliuliang = zongliuliang;
                 }
                 if (shiyongliuliang > 1024)
                 {
-                    long liuliang = shiyongliuliang / 1024;
+                    Double liuliang = shiyongliuliang / 1024;
                     mainViewModel.use = liuliang + "G";
                 }
                 else
@@ -69,6 +70,28 @@ namespace XuanTi.Controllers
             string result = BitConverter.ToString(md5.ComputeHash(encode.GetBytes(input)), 4, 8);
             result = result.Replace("-", "");
             return result;
+        }
+
+        public ActionResult Recharge()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Recharge(RechargeModels rechargeModels)
+        {
+            Flow flow = fs.GetFlow(rechargeModels.Number);
+            if (flow == null)
+            {
+                ModelState.AddModelError("", "充值码无效");
+                return View();
+            }
+            else
+            {
+                fs.RemoveFlow(rechargeModels.Number);
+                u.UpdateTransfer_enable(this.CurrentUser.email, flow.Content);
+                return RedirectToAction("Index", "Home");
+            }
+
         }
     }
 }

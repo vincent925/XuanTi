@@ -33,7 +33,16 @@ namespace XTSystem.Service
             }
             return null;
         }
-
+        public int UpdateTransfer_enable(string email, string content)
+        {
+            User user = GetUser(email);
+            if (user != null)
+            {
+                user.transfer_enable += Int64.Parse(content);
+                return context.SaveChanges();
+            }
+            return 0;
+        }
         private static string MD5Encrypt(string input, Encoding encode)
         {
             MD5 md5 = new MD5CryptoServiceProvider();

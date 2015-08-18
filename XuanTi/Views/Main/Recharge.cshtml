@@ -1,0 +1,31 @@
+﻿@model XuanTi.Models.RechargeModels
+@{
+    ViewBag.Title = "流量兑换";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="panel panel-default">
+    <div class="panel-heading">流量兑换</div>
+    <div class="panel-body">
+        <div class="modal-body">
+            <h2>
+                <i class="glyphicon glyphicon-shopping-cart"></i>
+                流量兑换
+            </h2>
+
+            <p>输入兑换码即可获得流量！</p>
+
+            @using (Html.BeginForm("Recharge", "Main", FormMethod.Post))
+            {
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-send"></i></span>
+                    @Html.TextBoxFor(m => m.Number, new { placeholder = "流量码", tabindex = "1", @class = "form-control", required = "required" })
+                </div>
+                @Html.ValidationMessage("")
+                <br />
+                <button type="submit" value="sub" name="sub" class="btn btn-primary"><i class="fa fa-share"></i> 确定</button>
+            }
+        </div>
+    </div>
+</div>
+
+

@@ -18,6 +18,7 @@ namespace XTSystem.Core
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Flow> Flows { get; set; }
     }
     [Table("user")]
     public class User
